@@ -23,24 +23,31 @@ class ViewController: UIViewController {
     }
 
     @IBAction private func calcButtonPressed(_ sender: UIButton) {
-        guard var num1 = Double(numTextField1.text ?? "") else {
+        guard let num1 = Double(numTextField1.text ?? "") else {
             resultLabel.text = "数字を入力してください"
             return
         }
-        guard var num2 = Double(numTextField2.text ?? "") else {
+        guard let num2 = Double(numTextField2.text ?? "") else {
             resultLabel.text = "数字を入力してください"
             return
         }
 
-        if !signSwitch1.isOn {
-            num1 = -num1
-        }
-        if !signSwitch2.isOn {
-            num2 = -num2
+        let signedNum1: Double
+        if signSwitch1.isOn {
+            signedNum1 = -num1
+        } else {
+            signedNum1 = num1
         }
 
-        numLabel1.text = String(num1)
-        numLabel2.text = String(num2)
-        resultLabel.text = String(num1 + num2)
+        let signedNum2: Double
+        if signSwitch2.isOn {
+            signedNum2 = -num2
+        } else {
+            signedNum2 = num2
+        }
+
+        numLabel1.text = String(signedNum1)
+        numLabel2.text = String(signedNum2)
+        resultLabel.text = String(signedNum1 + signedNum2)
     }
 }
